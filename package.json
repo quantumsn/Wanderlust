@@ -6,8 +6,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "production": "process.env.NODE_ENV=production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "NODE_ENV=production node index.js"
   },
   "keywords": [],
   "author": "Samprity Nayak",
