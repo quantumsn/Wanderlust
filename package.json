@@ -6,6 +6,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "server": "nodemon index.js",
+    "start": "set NODE_ENV-localhost & npm run server",
+    "dev": "set NODE_ENV-development & npm run server",
+    "production": "set NODE_ENV=production & npm run server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
