@@ -1,0 +1,119 @@
+<% layout("/layouts/boilerplate") %>
+
+  <body>
+    <div class="row justify-content-center">
+      <div class="col-10 border m-3 p-4 new-form">
+        <h3 class="mb-3 mt-3">Edit Listing :</h3>
+        <form method="post" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation"
+          enctype="multipart/form-data">
+          <div class="row">
+            <div class="mb-3 col-12">
+              <label for="title" class="form-label">Title</label>
+              <input value="<%= listing.title %>" id="title" type="text" name="listing[title]" class="form-control"
+                placeholder="Enter title" required />
+              <div class="valid-feedback">Looks good</div>
+              <div class="invalid-feedback">Required a valid Titlte</div>
+            </div>
+
+            <div class="mb-3 col-12">
+              <label for="description" class="form-label">Description</label>
+              <textarea name="listing[description]" id="description" class="form-control"
+                placeholder="Enter description.." required>
+<%= listing.description %></textarea>
+              <div class="invalid-feedback">
+                Required a valid short Description
+              </div>
+            </div>
+
+            <div class="mb-3 col-md-8 image-preview">
+              <p>Original Image Preview</p>
+              <img src="<%= originalImageUrl %>" alt="listing-image">
+            </div>
+
+            <div class="mb-3 col-md-8">
+              <label for="image" class="form-label">Upload New Image</label>
+              <input value="<%= listing.image.url %>" id="image" type="file" name="listing[image]" class="form-control"
+                placeholder="Enter image link" />
+              <div class="invalid-feedback">Required a valid Image link</div>
+            </div>
+
+            <div class="mb-3 col-md-4">
+              <label for="price" class="form-label">Price</label>
+              <input value="<%= listing.price %>" id="price" type="text" name="listing[price]" class="form-control"
+                placeholder="Enter price" required />
+              <div class="invalid-feedback">Required a valid Price</div>
+            </div>
+
+            <div class="mb-3 col-12">
+              <label for="location" class="form-label">Location</label>
+              <input value="<%= listing.location %>" id="location" type="text" name="listing[location]"
+                class="form-control" placeholder="Enter location" required />
+              <div class="invalid-feedback">Required a valid Location</div>
+            </div>
+
+            <div class="mb-3 col-12">
+              <label for="country" class="form-label">Country</label>
+              <input value="<%= listing.country %>" id="country" type="text" name="listing[country]"
+                placeholder="country" class="form-control" required />
+              <div class="invalid-feedback">Required a valid Country</div>
+            </div>
+
+            <div class="mb-3 col-12">
+              <label for="categories">Category</label> <br>
+              <div class="btn-group" id="categories" role="group">
+                <input type="checkbox" class="btn-check" name="listing[categories]" value="iconic cities"
+                  id="btncheck1">
+                <label class="btn btn-outline-primary categories-btn" for="btncheck1">Iconic Cities</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck2" name="listing[categories]" value="mountains">
+                <label class="btn btn-outline-primary categories-btn" for="btncheck2">Mountains</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck3" name="listing[categories]" value="rooms">
+                <label class="btn btn-outline-primary categories-btn" for="btncheck3">Rooms</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck4" name="listing[categories]" value="arctic">
+                <label class="btn btn-outline-primary categories-btn" for="btncheck4">Artic</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck5" name="listing[categories]" value="farms">
+                <label class="btn btn-outline-primary categories-btn" for="btncheck5">Farms</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck6" name="listing[categories]" value="castles">
+                <label class="btn btn-outline-primary categories-btn" for="btncheck6">Castles</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck7" name="listing[categories]" value="tents">
+                <label class="btn btn-outline-primary categories-btn" for="btncheck7">Tents</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck8" name="listing[categories]" value="boates">
+                <label class="btn btn-outline-primary categories-btn" for="btncheck8">Boates</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck9" name="listing[categories]" value="beaches">
+                <label class="btn btn-outline-primary categories-btn" for="btncheck9">Beaches</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck10" name="listing[categories]" value="igloo">
+                <label class="btn btn-outline-primary categories-btn" for="btncheck10">Igloo</label>
+
+                <input type="checkbox" class="btn-check" id="btncheck11" name="listing[categories]" value="trending">
+                <label class="btn btn-outline-primary categories-btn" for="btncheck11">Trending</label>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-success mb-3 special">Edit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    let btnChecks = document.querySelectorAll(".btn-check");
+    let categories = "<%= listing.categories %>";
+    categories = categories.split(",");
+    for (let btn of btnChecks) {
+      for (let category of categories) {
+        if (category == btn.value) {
+          btn.checked = true;
+        }
+      }
+
+    }
+  </script>

@@ -1,0 +1,124 @@
+<% layout("/layouts/boilerplate") %>
+
+  <body>
+
+    <div id="home-header">
+      <form id="filters" method="get" action="/listings/category">
+        <button type="submit" name="c" value="trending" class="filter">
+          <i class="fa-solid fa-fire"></i>
+          <p>Trending</p>
+        </button>
+        <button name="c" value="rooms" class="filter">
+          <i class="fa-solid fa-bed"></i>
+          <p>Rooms</p>
+        </button>
+        <button name="c" value="tents" class="filter">
+          <i class="fa-solid fa-tents"></i>
+          <p>Tents</p>
+        </button>
+        <button name="c" value="igloo" class="filter">
+          <i class="fa-solid fa-igloo"></i>
+          <p>Igloo</p>
+        </button>
+        <button name="c" value="mountains" class="filter filter-collapse collapsee">
+          <i class="fa-solid fa-mountain-sun"></i>
+          <p>Mountains</p>
+        </button>
+        <button name="c" value="iconic cities" class="filter filter-collapse collapsee">
+          <i class="fa-solid fa-archway"></i>
+          <p>Iconic Cities</p>
+        </button>
+        <button name="c" value="farms" class="filter filter-collapse collapsee">
+          <i class="fa-solid fa-cow"></i>
+          <p>Farms</p>
+        </button>
+        <button name="c" value="arctic" class="filter filter-collapse collapsee">
+          <i class="fa-solid fa-snowflake"></i>
+          <p>Arctic</p>
+        </button>
+        <button name="c" value="boates" class="filter filter-collapse collapsee">
+          <i class="fa-solid fa-sailboat"></i>
+          <p>Boates</p>
+        </button>
+        <button name="c" value="castles" class="filter filter-collapse collapsee">
+          <i class="fa-brands fa-fort-awesome"></i>
+          <p>Castles</p>
+        </button>
+        <button name="c" value="beaches" class="filter filter-collapse collapsee">
+          <i class="fa-solid fa-umbrella-beach"></i>
+          <p>Beaches</p>
+        </button>
+      </form>
+
+      <div class="dropdown-filters">
+        <button class="dropdown-filters-btn btn"><i
+            class="dropdown-filters-btn-icon fa-solid fa-chevron-down"></i></button>
+      </div>
+
+      <div class="tax-switch">
+        <div class="form-check-reverse form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Display Taxes</label>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <% if(listingData) {%>
+        <% for(let listing of listingData) { %>
+          <a href="/listings/<%= listing._id %>" class="col-lg-3 col-md-4 col-sm-6 listing-link">
+            <div class="card">
+              <img src="<%= listing.image.url %>" class="card-img-top index-page" alt="listing_image" />
+              <div class="card-img-overlay"></div>
+              <div class="card-body">
+                <p class="card-text">
+                  <b>
+                    <%= listing.title %>
+                  </b> <br />
+                  &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+                    &nbsp; <span class="tax tax-quan">18% Tax</span>
+                </p>
+              </div>
+            </div>
+          </a>
+          <% } %>
+            <% } %>
+              <% if(listingData=="" ) {%>
+                <H1 style="color: #868686; text-align: center;">Not Found Such Listings !!</H1>
+                <% } %>
+    </div>
+  </body>
+
+  <script>
+    let taxBox = document.querySelector("#flexSwitchCheckDefault");
+    let dropdownFiltersBtn = document.querySelector(".dropdown-filters-btn");
+
+    taxBox.addEventListener("click", () => {
+      let taxes = document.querySelectorAll(".tax-quan");
+      for (tax of taxes) {
+        tax.classList.toggle("tax");
+      }
+    });
+
+    let collapseFilters = document.querySelectorAll(".collapsee");
+    let dropdownFiltersBtnIcon = document.querySelector(".dropdown-filters-btn-icon");
+    dropdownFiltersBtn.addEventListener("click", () => {
+      for (let collapseFilter of collapseFilters) {
+        collapseFilter.classList.toggle("filter-collapse");
+      }
+      if (dropdownFiltersBtnIcon.getAttribute("class") == "dropdown-filters-btn-icon fa-solid fa-chevron-down") {
+        dropdownFiltersBtnIcon.classList.add("fa-chevron-up");
+        dropdownFiltersBtnIcon.classList.remove("fa-chevron-down");
+      } else {
+        dropdownFiltersBtnIcon.classList.remove("fa-chevron-up");
+        dropdownFiltersBtnIcon.classList.add("fa-chevron-down");
+      }
+    });
+
+    let filters = document.querySelectorAll(".filter");
+    let c = "<%= c %>"
+    for (let filter of filters) {
+      if (filter.value == c) {
+        filter.style.opacity = 1;
+      }
+    }
+  </script>

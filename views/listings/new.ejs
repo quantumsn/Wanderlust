@@ -1,0 +1,86 @@
+<% layout("/layouts/boilerplate") %>
+
+  <body>
+    <h3>Create a new Listing :</h3>
+    <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+      <div class="row">
+        <div class="mb-3 col-12">
+          <label for="title" class="form-label">Title</label>
+          <input id="title" type="text" name="listing[title]" class="form-control" placeholder="Enter title" required />
+          <div class="valid-feedback">Looks good</div>
+          <div class="invalid-feedback">Required a valid Titlte</div>
+        </div>
+
+        <div class="mb-3 col-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea name="listing[description]" id="description" class="form-control" placeholder="Enter description.."
+            required></textarea>
+          <div class="invalid-feedback">Required a valid short Description</div>
+        </div>
+
+        <div class="mb-3 col-md-8">
+          <label for="image" class="form-label">Image</label>
+          <input id="image" type="file" name="listing[image]" class="form-control" required />
+        </div>
+
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input id="price" name="listing[price]" class="form-control" placeholder="Enter price" required />
+          <div class="invalid-feedback">Required a valid Price</div>
+        </div>
+
+        <div class="mb-3 col-12">
+          <label for="location" class="form-label">Location</label>
+          <input id="location" type="text" name="listing[location]" class="form-control" placeholder="Enter location"
+            required />
+          <div class="invalid-feedback">Required a valid Location</div>
+        </div>
+
+        <div class="mb-3 col-12">
+          <label for="country" class="form-label">Country</label>
+          <input id="country" type="text" name="listing[country]" placeholder="country" class="form-control" required />
+          <div class="invalid-feedback">Required a valid Country</div>
+        </div>
+      </div>
+
+      <div class="mb-3 col-12">
+        <label for="categories">Category</label> <br>
+        <div class="btn-group" id="categories" role="group">
+          <input type="checkbox" class="btn-check" name="listing[categories]" value="iconic cities" id="btncheck1">
+          <label class="btn btn-outline-primary categories-btn" for="btncheck1">Iconic Cities</label>
+
+          <input type="checkbox" class="btn-check" id="btncheck2" name="listing[categories]" value="mountains">
+          <label class="btn btn-outline-primary categories-btn" for="btncheck2">Mountains</label>
+
+          <input type="checkbox" class="btn-check" id="btncheck3" name="listing[categories]" value="rooms">
+          <label class="btn btn-outline-primary categories-btn" for="btncheck3">Rooms</label>
+
+          <input type="checkbox" class="btn-check" id="btncheck4" name="listing[categories]" value="arctic">
+          <label class="btn btn-outline-primary categories-btn" for="btncheck4">Artic</label>
+
+          <input type="checkbox" class="btn-check" id="btncheck5" name="listing[categories]" value="farms">
+          <label class="btn btn-outline-primary categories-btn" for="btncheck5">Farms</label>
+
+          <input type="checkbox" class="btn-check" id="btncheck6" name="listing[categories]" value="castles">
+          <label class="btn btn-outline-primary categories-btn" for="btncheck6">Castles</label>
+
+          <input type="checkbox" class="btn-check" id="btncheck7" name="listing[categories]" value="tents">
+          <label class="btn btn-outline-primary categories-btn" for="btncheck7">Tents</label>
+
+          <input type="checkbox" class="btn-check" id="btncheck8" name="listing[categories]" value="boates">
+          <label class="btn btn-outline-primary categories-btn" for="btncheck8">Boates</label>
+
+          <input type="checkbox" class="btn-check" id="btncheck9" name="listing[categories]" value="beaches">
+          <label class="btn btn-outline-primary categories-btn" for="btncheck9">Beaches</label>
+
+          <input type="checkbox" class="btn-check" id="btncheck10" name="listing[categories]" value="igloo">
+          <label class="btn btn-outline-primary categories-btn" for="btncheck10">Igloo</label>
+
+          <input type="checkbox" class="btn-check" id="btncheck11" name="listing[categories]" value="trending">
+          <label class="btn btn-outline-primary categories-btn" for="btncheck11">Trending</label>
+        </div>
+      </div>
+
+      <button class="btn btn-success mb-3 special">Add</button>
+    </form>
+  </body>
