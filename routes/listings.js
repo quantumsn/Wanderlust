@@ -8,7 +8,7 @@ const {
 } = require("../middlewares.js");
 const listingControllers = require("../controllers/listings.js");
 const multer = require("multer");
-const { storage } = require("../cloudConfig.js");
+const { storage, saveFile } = require("../cloudConfig.js");
 const upload = multer({ storage });
 
 //category filter route
@@ -23,6 +23,7 @@ router
   .post(
     isAuthenticated,
     upload.single("listing[image]"),
+    saveFile,
     validateSchema,
     warpAsync(listingControllers.addListing)
   );
@@ -42,6 +43,7 @@ router
   .route("/:id")
   .put(
     upload.single("listing[image]"),
+    saveFile,
     validateSchema,
     isAuthenticated,
     isOwner,

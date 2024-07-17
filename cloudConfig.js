@@ -1,5 +1,7 @@
 const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const fs = require("fs");
+const multer = require("multer");
+const CusttomError = require("./utilit/customError");
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -7,15 +9,34 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: "wanderlust_DEV",
-    allowerdFormats: ["png", "jpg", "jpeg"],
+const storage = multer.diskStorage({
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
   },
 });
 
+const saveFile = async (req, res, next) => {
+  try {
+    await cloudinary.uploader.upload(
+      req.file.path,
+      {
+        resource_type: "image",
+        folder: "wanderlust_DEV",
+      },
+      (err, result) => {
+        // console.log(result);
+        (req.file.url = result.url),
+          (req.file.filename = result.asset_folder + "/" + result.display_name);
+      }
+    );
+    next();
+  } catch (err) {
+    fs.unlinkSync(req.file.path);
+    next(err);
+  }
+};
+
 module.exports = {
-  cloudinary,
+  saveFile,
   storage,
 };

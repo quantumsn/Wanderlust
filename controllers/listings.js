@@ -31,7 +31,7 @@ module.exports.addListing = async (req, res, next) => {
       limit: 1,
     })
     .send();
-  let url = req.file.path;
+  let url = req.file.url;
   let filename = req.file.filename;
   let data = new Listing(req.body.listing);
   data.owner = req.user._id;
@@ -74,7 +74,7 @@ module.exports.editListing = async (req, res) => {
   listingData.geometry = coordinates.body.features[0].geometry;
   await listingData.save();
   if (req.file) {
-    let url = req.file.path;
+    let url = req.file.url;
     let filename = req.file.filename;
     listingData.image = { url, filename };
     await listingData.save();
