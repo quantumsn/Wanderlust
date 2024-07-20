@@ -17,21 +17,24 @@ const storage = multer.diskStorage({
 
 const saveFile = async (req, res, next) => {
   try {
-    await cloudinary.uploader.upload(
-      req.file.path,
-      {
-        resource_type: "image",
-        folder: "wanderlust_DEV",
-      },
-      (err, result) => {
-        // console.log(result);
-        (req.file.url = result.url),
-          (req.file.filename = result.asset_folder + "/" + result.display_name);
-      }
-    );
-    next();
+    if (typeof req.file !== "undefined") {
+      await cloudinary.uploader.upload(
+        req.file.path,
+        {
+          resource_type: "image",
+          folder: "wanderlust_DEV",
+        },
+        (err, result) => {
+          (req.file.url = result.url),
+            (req.file.filename =
+              result.asset_folder + "/" + result.display_name);
+        }
+      );
+      next();
+    } else {
+      next();
+    }
   } catch (err) {
-    fs.unlinkSync(req.file.path);
     next(err);
   }
 };

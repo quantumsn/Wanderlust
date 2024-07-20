@@ -73,7 +73,8 @@ module.exports.editListing = async (req, res) => {
     .send();
   listingData.geometry = coordinates.body.features[0].geometry;
   await listingData.save();
-  if (req.file) {
+
+  if (typeof req.file !== "undefined") {
     let url = req.file.url;
     let filename = req.file.filename;
     listingData.image = { url, filename };
